@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+#butt{
+display:block;
+}
+#myotp{
+display:none;
+}
+#subm{
+display:none;
+}
+#tex{
+display:none;
+}
+#chec{
+display:none;
+}
+</style>
+
+</head>
+<body>
+<h2>OTP Validation!!!</h2>
+<button id="butt" onclick="generate()">Generate OTP</button>
+<p id="tex">Please Enter Your OTP Here!!!<br>Time Left:</p>
+<b><p id="dis"></p></b>
+<p id="chec">You have entered a Wrong OTP!!!</p>
+<input type="number" id="subm">
+</body>
+<script>
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function generate()
+{
+var otp=Math.floor(Math.random()*1000000);
+console.log(otp);
+if(otp==0)
+return generate();
+document.getElementById("butt").style.display="none";
+document.getElementById("tex").style.display="block";
+document.getElementById("subm").style.display="block";
+document.getElementById("chec").style.display="none";
+var i=120;
+while(i!=0)
+{
+  document.getElementById("dis").innerHTML=i;
+  await sleep(1000);
+if(document.getElementById("subm").value.length==6)
+{
+  if(await parseInt(document.getElementById("subm").value,10)==otp)
+{
+document.getElementById("chec").style.display="none";
+window.alert("You have Entered a Correct OTP!!!");
+console.log("Thank You!!!");
+break;
+}
+else{
+document.getElementById("chec").style.display="block";
+}
+ }
+else{
+document.getElementById("chec").style.display="none";
+}  
+  i=i-1;
+console.log(i);
+}
+}
+</script>
+</html>
